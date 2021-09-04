@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Pipe, PipeTransform } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
     <div>
       <input type="text" [(ngModel)]="search" />
       <div *ngIf="search === 'compteur'">
-        <p>Compteur : {{ count }} * 2 = {{ count * 2 }}</p>
+        <p>Compteur : {{ count }} * 2 = {{ count | double }}</p>
         <button (click)="increment()">Incrémenter</button>
         <button (click)="pushItem()">Ajouter un item</button>
         <button (click)="pushItemImmutable()">
@@ -43,5 +43,15 @@ export class AppComponent {
 
   public pushItemImmutable() {
     this.items = [...this.items, this.items.length];
+  }
+}
+
+@Pipe({
+  name: 'double',
+})
+export class DoublePipe implements PipeTransform {
+  public transform(value: number): number {
+    console.log('Double computed');
+    return value * 2;
   }
 }
