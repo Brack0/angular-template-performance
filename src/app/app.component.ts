@@ -20,22 +20,12 @@ import { Component } from '@angular/core';
         <p>Compteur : {{ count }} * 2 = {{ count * 2 }}</p>
         <button (click)="increment()">Incrémenter</button>
         <button (click)="pushItem()">Ajouter un item</button>
+        <button (click)="pushItemImmutable()">
+          Ajouter un item (immutable)
+        </button>
       </div>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of items">
-          <td>{{ item }}</td>
-          <td>John doe{{ item }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <app-my-table [items]="items"></app-my-table>
   `,
 })
 export class AppComponent {
@@ -49,5 +39,9 @@ export class AppComponent {
 
   public pushItem() {
     this.items.push(this.items.length);
+  }
+
+  public pushItemImmutable() {
+    this.items = [...this.items, this.items.length];
   }
 }
